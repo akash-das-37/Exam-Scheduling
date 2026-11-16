@@ -8,6 +8,7 @@ venv/
 env/
 *.db
 timetable.db
+.vercel/
 
 # Node
 node_modules/
