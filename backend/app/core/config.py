@@ -2,13 +2,23 @@ import os
 from pydantic_settings import BaseSettings
 from typing import List
 
+def _get_database_url() -> str:
+    url = os.getenv("DATABASE_URL")
+    if url:
+        if url.startswith("postgres://"):
+            return url.replace("postgres://", "postgresql://", 1)
+        return url
+    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return "sqlite:////tmp/timetable.db"
+    return "sqlite:///./timetable.db"
+
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Intelligent Exam Timetable Scheduling System"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api"
     
     # Database: Default to sqlite file in backend/timetable.db, or PostgreSQL when DATABASE_URL is set
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./timetable.db")
+    DATABASE_URL: str = _get_database_url()
     
     # JWT & Auth
     SECRET_KEY: str = os.getenv("SECRET_KEY", "super-secret-scheduling-jwt-key-2026-exam-system-change-in-prod")

@@ -22,6 +22,13 @@ from backend.app.api.settings import router as settings_router
 # Initialize tables
 Base.metadata.create_all(bind=engine)
 
+# Auto-seed if database is fresh
+try:
+    from backend.app.utils.seed_data import seed_database
+    seed_database()
+except Exception as e:
+    print(f"Auto-seeding check: {e}")
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
@@ -37,21 +44,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include API Routers under /api
-app.include_router(auth_router, prefix=settings.API_V1_STR)
-app.include_router(academic_router, prefix=settings.API_V1_STR)
-app.include_router(people_router, prefix=settings.API_V1_STR)
-app.include_router(subjects_router, prefix=settings.API_V1_STR)
-app.include_router(exams_router, prefix=settings.API_V1_STR)
-app.include_router(rooms_router, prefix=settings.API_V1_STR)
-app.include_router(scheduler_router, prefix=settings.API_V1_STR)
-app.include_router(timetable_router, prefix=settings.API_V1_STR)
-app.include_router(reports_router, prefix=settings.API_V1_STR)
-app.include_router(analytics_router, prefix=settings.API_V1_STR)
-app.include_router(notifications_router, prefix=settings.API_V1_STR)
-app.include_router(settings_router, prefix=settings.API_V1_STR)
+# List of API Routers
+api_routers = [
+    auth_router,
+    academic_router,
+    people_router,
+    subjects_router,
+    exams_router,
+    rooms_router,
+    scheduler_router,
+    timetable_router,
+    reports_router,
+    analytics_router,
+    notifications_router,
+    settings_router
+]
+
+# Include routers under /api AND root to handle any proxy/serverless path rewriting seamlessly
+for r in api_routers:
+    app.include_router(r, prefix=settings.API_V1_STR)
+    app.include_router(r)
 
 @app.get("/")
+@app.get("/api")
 def root():
     return {
         "system": settings.PROJECT_NAME,
@@ -61,6 +76,7 @@ def root():
     }
 
 @app.get("/health")
+@app.get("/api/health")
 def health():
     return {"status": "healthy", "timestamp": "2026-11-16T14:50:43Z"}
 
