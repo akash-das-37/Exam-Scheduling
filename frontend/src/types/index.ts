@@ -7,6 +7,7 @@ export interface User {
   is_active: boolean;
   student_id?: number;
   faculty_id?: number;
+  created_at?: string;
 }
 
 export interface Department {
