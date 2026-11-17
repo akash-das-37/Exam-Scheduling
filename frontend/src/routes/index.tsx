@@ -11,6 +11,7 @@ import { AuthLayout } from '../layouts/AuthLayout';
 // Auth Pages
 import { Login } from '../pages/auth/Login';
 import { ForgotPassword } from '../pages/auth/ForgotPassword';
+import { LandingPage } from '../pages/LandingPage';
 
 // Admin Pages
 import { Dashboard } from '../pages/admin/Dashboard';
@@ -52,8 +53,8 @@ export const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      {/* Root redirect */}
-      <Route path="/" element={<Navigate to={getDefaultRedirect()} replace />} />
+      {/* Front Landing Page */}
+      <Route path="/" element={<LandingPage />} />
 
       {/* Auth routes */}
       <Route element={<AuthLayout />}>

@@ -35,15 +35,15 @@ class Settings(BaseSettings):
     ]
     
     # Institution Defaults
-    COLLEGE_NAME: str = "Apex Institute of Science & Technology"
-    COLLEGE_CODE: str = "AIST"
+    COLLEGE_NAME: str = "JIS College of Engineering"
+    COLLEGE_CODE: str = "JISCE"
     
     # Email / SMTP
     SMTP_HOST: str = os.getenv("SMTP_HOST", "")
     SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
     SMTP_USER: str = os.getenv("SMTP_USER", "")
     SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
-    EMAILS_FROM_EMAIL: str = os.getenv("EMAILS_FROM_EMAIL", "exams@apex.edu")
+    EMAILS_FROM_EMAIL: str = os.getenv("EMAILS_FROM_EMAIL", "exams@jisce.ac.in")
     
     class Config:
         case_sensitive = True

@@ -82,17 +82,17 @@ The **Intelligent Exam Timetable Scheduling System** is an enterprise-grade full
 
 ---
 
-## 4. Default Seed Credentials
+## 4. Default Seed Credentials (JIS College of Engineering)
 
-The application is pre-seeded with realistic multi-department college data (Computer Science, Electronics, Mechanical, Information Technology, 55+ students with regular and backlog subjects, 10 faculty members, 9 rooms, time slots):
+The application is pre-seeded with realistic multi-department college data for **JIS College of Engineering (JISCE)** (Computer Science, Electronics, Mechanical, Information Technology, 55+ students with regular and backlog subjects, 10 faculty members, 9 rooms, time slots):
 
 | Role | Email | Password | Description |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@apex.edu` | `admin123` | Dean of Examinations (Full System Control) |
-| **Faculty** | `faculty.cse1@apex.edu` | `faculty123` | Dr. Alan Turing (Professor of CSE) |
-| **Faculty** | `faculty.cse2@apex.edu` | `faculty123` | Dr. Grace Hopper (Associate Professor) |
-| **Student** | `student.cse1@apex.edu` | `student123` | CSE Student 01 (Regular Sem 4) |
-| **Student** | `student.cse6@apex.edu` | `student123` | CSE Student 06 (Sem 4 Regular + Sem 2 Math Backlog) |
+| **Admin** | `admin@jisce.ac.in` *(or `admin@apex.edu`)* | `admin123` | Dean of Examinations (Full System Control) |
+| **Faculty** | `faculty.cse1@jisce.ac.in` *(or `faculty.cse1@apex.edu`)* | `faculty123` | Dr. Alan Turing (Professor of CSE) |
+| **Faculty** | `faculty.cse2@jisce.ac.in` *(or `faculty.cse2@apex.edu`)* | `faculty123` | Dr. Grace Hopper (Associate Professor) |
+| **Student** | `student.cse1@jisce.ac.in` *(or `student.cse1@apex.edu`)* | `student123` | CSE Student 01 (Regular Sem 4) |
+| **Student** | `student.cse6@jisce.ac.in` *(or `student.cse6@apex.edu`)* | `student123` | CSE Student 06 (Sem 4 Regular + Sem 2 Math Backlog) |
 
 *(Quick sign-in demo buttons are also provided directly on the login screen for 1-click testing).*
 

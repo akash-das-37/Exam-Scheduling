@@ -49,11 +49,11 @@ export const Navbar: React.FC = () => {
   return (
     <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 flex items-center justify-between px-6">
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
-          A
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+          J
         </div>
         <div>
-          <h1 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-none">Apex Institute</h1>
+          <h1 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-none">JIS College of Engineering</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Exam Scheduling System</p>
         </div>
       </div>

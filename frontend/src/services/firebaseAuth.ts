@@ -22,14 +22,39 @@ export interface SignUpData {
 
 // Built-in institutional accounts guaranteed to work offline & online everywhere
 export const INSTITUTION_ACCOUNTS: Record<string, { pass: string; user: User }> = {
+  "admin@jisce.ac.in": {
+    pass: "admin123",
+    user: {
+      id: 1,
+      email: "admin@jisce.ac.in",
+      full_name: "Dr. Arthur Vance (Dean of Exams, JISCE)",
+      role: "admin",
+      phone: "+91 33 2582 1309",
+      is_active: true,
+      created_at: new Date().toISOString()
+    }
+  },
   "admin@apex.edu": {
     pass: "admin123",
     user: {
       id: 1,
-      email: "admin@apex.edu",
-      full_name: "Dr. Arthur Vance (Dean of Exams)",
+      email: "admin@jisce.ac.in",
+      full_name: "Dr. Arthur Vance (Dean of Exams, JISCE)",
       role: "admin",
-      phone: "+1 555-0199",
+      phone: "+91 33 2582 1309",
+      is_active: true,
+      created_at: new Date().toISOString()
+    }
+  },
+  "faculty.cse1@jisce.ac.in": {
+    pass: "faculty123",
+    user: {
+      id: 2,
+      email: "faculty.cse1@jisce.ac.in",
+      full_name: "Dr. Robert Chen",
+      role: "faculty",
+      phone: "+91 33 2582 1310",
+      faculty_id: 1,
       is_active: true,
       created_at: new Date().toISOString()
     }
@@ -38,11 +63,24 @@ export const INSTITUTION_ACCOUNTS: Record<string, { pass: string; user: User }> 
     pass: "faculty123",
     user: {
       id: 2,
-      email: "faculty.cse1@apex.edu",
+      email: "faculty.cse1@jisce.ac.in",
       full_name: "Dr. Robert Chen",
       role: "faculty",
-      phone: "+1 555-0201",
+      phone: "+91 33 2582 1310",
       faculty_id: 1,
+      is_active: true,
+      created_at: new Date().toISOString()
+    }
+  },
+  "student.cse1@jisce.ac.in": {
+    pass: "student123",
+    user: {
+      id: 12,
+      email: "student.cse1@jisce.ac.in",
+      full_name: "Aarav Sharma",
+      role: "student",
+      phone: "+91 98300 12345",
+      student_id: 1,
       is_active: true,
       created_at: new Date().toISOString()
     }
@@ -51,10 +89,10 @@ export const INSTITUTION_ACCOUNTS: Record<string, { pass: string; user: User }> 
     pass: "student123",
     user: {
       id: 12,
-      email: "student.cse1@apex.edu",
+      email: "student.cse1@jisce.ac.in",
       full_name: "Aarav Sharma",
       role: "student",
-      phone: "+1 555-1001",
+      phone: "+91 98300 12345",
       student_id: 1,
       is_active: true,
       created_at: new Date().toISOString()
@@ -68,12 +106,18 @@ export const INSTITUTION_ACCOUNTS: Record<string, { pass: string; user: User }> 
 export async function authenticateSignIn(email: string, pass: string): Promise<{ token: string; user: User }> {
   const cleanEmail = email.trim().toLowerCase();
 
+  // Compatibility alias for @jisce.ac.in and @apex.edu
+  const altEmail = cleanEmail.endsWith('@jisce.ac.in')
+    ? cleanEmail.replace('@jisce.ac.in', '@apex.edu')
+    : cleanEmail.endsWith('@apex.edu')
+    ? cleanEmail.replace('@apex.edu', '@jisce.ac.in')
+    : cleanEmail;
+
   // 1. Check local pre-seeded institutional credentials first for instant, guaranteed login
-  if (INSTITUTION_ACCOUNTS[cleanEmail] && INSTITUTION_ACCOUNTS[cleanEmail].pass === pass) {
-    const cred = INSTITUTION_ACCOUNTS[cleanEmail];
+  const foundAccount = INSTITUTION_ACCOUNTS[cleanEmail] || INSTITUTION_ACCOUNTS[altEmail];
+  if (foundAccount && foundAccount.pass === pass) {
+    const cred = foundAccount;
     const syntheticToken = `token_demo_${cred.user.role}_${Date.now()}`;
-    // Attempt backend sync in background without blocking
-    api.post('/auth/login', { email: cleanEmail, password: pass }).catch(() => {});
     return { token: syntheticToken, user: cred.user };
   }
 

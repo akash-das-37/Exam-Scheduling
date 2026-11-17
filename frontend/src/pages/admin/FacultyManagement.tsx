@@ -225,7 +225,7 @@ export const FacultyManagement: React.FC = () => {
               <input
                 type="email"
                 required
-                placeholder="faculty@apex.edu"
+                placeholder="faculty@jisce.ac.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"

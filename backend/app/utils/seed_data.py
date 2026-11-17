@@ -13,22 +13,32 @@ def seed_database():
     db = SessionLocal()
     try:
         # Check if already seeded
-        if db.query(User).filter(User.email == "admin@apex.edu").first():
+        if db.query(User).filter(User.email.in_(["admin@jisce.ac.in", "admin@apex.edu"])).first():
             print("Database already seeded. Skipping initial seeding.")
             return
 
-        print("Seeding database with realistic college data...")
+        print("Seeding database with realistic college data for JIS College of Engineering...")
 
         # 1. Users
         admin_user = User(
-            email="admin@apex.edu",
+            email="admin@jisce.ac.in",
             hashed_password=get_password_hash("admin123"),
-            full_name="Dr. Arthur Vance (Dean of Exams)",
+            full_name="Dr. Arthur Vance (Dean of Exams, JISCE)",
             role=UserRole.ADMIN.value,
-            phone="+1 555-0199",
+            phone="+91 33 2582 1309",
             is_active=True
         )
         db.add(admin_user)
+        # Compatibility alias
+        admin_alias = User(
+            email="admin@apex.edu",
+            hashed_password=get_password_hash("admin123"),
+            full_name="Dean of Examinations (JISCE)",
+            role=UserRole.ADMIN.value,
+            phone="+91 33 2582 1309",
+            is_active=True
+        )
+        db.add(admin_alias)
         db.flush()
 
         # 2. Departments
